@@ -1,0 +1,10 @@
+#include "llist.h"
+
+class func
+{
+ protected:
+  
+ public:
+  void makeList(llist & L);
+  
+};

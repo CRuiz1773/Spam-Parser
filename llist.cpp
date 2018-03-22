@@ -1,0 +1,943 @@
+/**
+Created by: Christopher Ruiz-Rodriguez
+File: llist.cpp
+Purpose: Houses all functions for class llist
+*/
+
+using namespace std;
+
+#include<iostream>
+#include "llist.h"
+
+//Constructor for class llist
+llist::llist()
+{
+  Front = NULL;
+  Rear = NULL;
+  Count = 0;
+}
+
+//Deconstructor for class llist
+llist::~llist()
+{
+  while(!isEmpty())
+    deleteFront(Front->Elem);
+}
+
+//Returns bool value depending on if list is empty
+bool llist::isEmpty()
+{
+  if(Front == NULL && Rear == NULL && Count == 0)
+    return true;
+  else
+    return false;
+}
+
+//Displays all elements within a llist
+void llist::displayAll()
+{
+  if(isEmpty())
+    cout<<"[ empty ]"<<endl;
+  else
+    {
+      Node *p = Front;
+      cout<< "[ ";
+      while(p!=NULL)
+	{
+	  cout<<p->Elem<<" ";
+	  p = p->Next;
+	}
+      cout<<"]"<<endl;
+    }
+}
+
+//Adds element to rear of llist
+void llist::addRear(el_t NewNum)
+{
+  if(isEmpty())
+    {
+      Node *p = new Node;
+      Front = p;
+      Rear = p;
+      Rear->Elem = NewNum;
+      Count++;
+    }
+  else
+    {
+      Rear->Next = new Node;
+      Rear = Rear->Next;
+      Rear->Elem = NewNum;
+      Rear->Next = NULL;
+      Count++;
+    }
+}
+
+//Adds element to front of list
+void llist::addFront(el_t NewNum)
+{
+  if(isEmpty())
+    {
+      Node *p = new Node;
+      Front = p;
+      Rear = p;
+      Front->Elem = NewNum;
+      Count++;
+    }
+  else
+    {
+      Node *x;
+      x = new Node;
+      x->Next = Front;
+      Front = x;
+      Front->Elem = NewNum;
+      Count++;
+    }
+}
+
+//Deletes front node
+void llist::deleteFront(el_t& OldNum)
+{
+  try
+    {
+      if(isEmpty())
+	{
+	  throw Underflow();
+	}
+      else if(Count == 1)
+	{
+	  OldNum = Front->Elem;
+	  delete Front;
+	  Front = NULL;
+	  Rear = NULL;
+	  Count--;
+	}
+      else
+	{
+	  OldNum = Front->Elem;
+	  Node *Second;
+	  Second = Front->Next;
+	  delete Front;
+	  Front = Second;
+	  Count--;
+	}
+    }
+  catch(Underflow)
+    {
+      cerr<<"Cannot remove front element because list is empty"<<endl;
+    }
+}
+
+
+/**
+Purpose: Creates linked list with specific attributes for this FA
+ */
+void llist::createList()
+{
+  if(isEmpty())
+    {
+      addRear('<');
+      addRear('D');
+      addRear('O');
+      addRear('C');
+      addRear('>');
+      addRear('\n');
+      addRear('<');
+      addRear('D');
+      addRear('O');
+      addRear('C');
+      addRear('I');
+      addRear('D');
+      addRear('>');
+      addRear(' ');
+      addRear('m');
+      addRear('s');
+      addRear('g');
+      addRear(' ');
+      addRear('<');
+      addRear('/');
+      addRear('D');
+      addRear('O');
+      addRear('C');
+      addRear('I');
+      addRear('D');
+      addRear('>');
+      addRear('\n');
+      addRear('S');
+      addRear('u');
+      addRear('b');
+      addRear('j');
+      addRear('e');
+      addRear('c');
+      addRear('t');
+      addRear(':');
+      addRear('\n');
+      addRear('\n');
+      addRear('f');
+      addRear('r');
+      addRear('e');
+      addRear('e');
+      addRear(' ');
+      addRear('a');
+      addRear('c');
+      addRear('c');
+      addRear('e');
+      addRear('s'); 
+      addRear('s');
+      addRear('s');
+      addRear('o');
+      addRear('f');
+      addRear('t');
+      addRear('w');
+      addRear('a');
+      addRear('r');
+      addRear('e');
+      addRear('v');
+      addRear('a');
+      addRear('c');
+      addRear('a');
+      addRear('t');
+      addRear('i');
+      addRear('o');
+      addRear('n');
+      addRear('t');
+      addRear('r');
+      addRear('i');
+      addRear('a');
+      addRear('l');
+      addRear('s');
+      addRear('w');
+      addRear('i');
+      addRear('n');
+      addRear(' ');
+      addRear('n');
+      addRear('e');
+      addRear('r');
+      addRear('s');
+      addRear('i');
+      addRear('n');
+      addRear('g');
+      addRear('s');
+      addRear(' ');
+      addRear('<');	     
+      addRear('/');
+      addRear('D');
+      addRear('O');
+      addRear('C');
+      addRear('>');
+      addRear(' ');
+
+      //Special case initialization
+      Node *p = Front;
+      Node *q = Front;
+      //q35 special case
+      for(int i = 0;i < 37;i++)
+	  p = p->Next;
+      for(int i = 0;i < 71;i++)
+	  q = q->Next;
+      p->E1 ='w';
+      //cout<<"Test"<<p->Elem<<"Space here probably"<<endl;
+
+      //q40 special case
+      p = Front;
+      q = Front;
+      for(int i = 0;i < 42;i++)
+	p = p->Next; 
+      for(int i = 0;i < 49;i++) //s case
+	q = q->Next;
+      p->E1 = 's';
+
+      q = Front;               //v case
+      for(int i = 0; i < 57;i++)
+	q = q->Next;
+      p->E2 = 'v';
+
+      q = Front;              //t case
+      for(int i = 0; i < 65;i++)
+	q = q->Next;
+      p->E3 = 't';
+      
+      //cout<<p->Elem<<p->E1<<p->E2<<p->E3;
+      
+      //q71 special case
+      p = Front;
+      q = Front;
+      for(int i = 0;i < 73;i++)
+	p = p->Next;
+      for(int i = 0;i < 75;i++)
+	q = q->Next;
+      p->E1 = 'n';
+
+      //cout<<p->Elem<<p->E1;
+
+      //q74 special case
+      //connect q74 to end tags
+      p = Front;
+      q = Front;
+      for(int i = 0; i < 74;i++)
+	p = p->Next;
+      for(int i = 0;i < 83;i++)
+	q = q->Next;
+      p->E1 = q->Elem;
+      
+      
+      //q75 special case
+      p = Front;
+      q = Front;
+      for(int i = 0;i < 75;i++)
+	p = p->Next;
+      for(int i = 0;i < 79;i++)
+	q = q->Next;
+      p->E1 = 'i';
+      //cout<<p->Elem<<p->E1; 
+     
+
+      //Connecting all final states to q83
+      //All of their N1 nodes will connect to the final state
+      //q46 connection
+      p = Front;
+      q = Front;
+      for(int i = 0;i < 83;i++)
+	q = q->Next;
+      for(int i = 0; i < 48;i++)
+	p = p->Next;
+      p->E1 = ' ';
+
+      //q56 connection
+      p = Front;
+      for(int i = 0;i < 56;i++)
+	p = p->Next;
+      p->E1 = ' ';
+      
+      //q64 connection
+      p = Front;
+      for(int i = 0;i < 64;i++)
+	p=p->Next;
+      p->E1 = ' ';
+
+      //q70 connection
+      p = Front;
+      for(int i = 0;i < 70;i++)
+	p = p->Next;
+      p->E1 = ' ';
+
+      //q77 connection
+      p = Front;
+      for(int i = 0;i < 77;i++)
+	p = p->Next;
+      p->E1 = ' ';
+      
+      //q78 connection
+      p = Front;
+      for(int i = 0;i < 78;i++)
+	p = p->Next;
+      p->E1 = ' ';
+      cout<<"There should be a space"<<p->E1<<"here"<<endl;
+
+      //q82(Just in case)
+      p = Front;
+      for(int i = 0;i < 82;i++)
+	p = p->Next;
+      p->E1 = ' ';
+      // cout<<q->Elem<<endl;
+
+
+      //q73 connection to q75
+      p = Front;
+      for(int i = 0;i < 73;i++)
+        p = p->Next;
+      q = p->Next;
+      q = p->Next;
+      p->E1 = 'n';
+            
+      //Message separation 
+      //link q37 to q84 in case of msg w/ no hits
+      p = Front;
+      q = Front;
+      for(int i = 0;i < 83;i++)
+	q = q->Next;
+      for(int i = 0; i < 37;i++)
+	p = p->Next;
+      p->E2 = q->Elem;
+      
+
+      //link 90 to q84
+      Rear->Elem = ' ';
+      Rear->E1 = '\n';
+      Rear->E2 = '<';
+    }
+}
+
+
+//This function manipulates the state of the finite automata
+//Param: state : Current state of automata
+//         x   : Character read in from main text
+//Return: Returns new position of automata
+int llist::manState(int &state,char x)
+{
+  Node *p = Front;
+  if(state == 0)   //State 0 case
+    {
+      if(x == p->Elem)
+	return 1;
+      else 
+	return 0;
+    }
+  else
+    {
+      for(int i = 0;i < state;i++)
+	p = p->Next;
+    
+      switch(state)
+	{
+	case(1): 
+	  if(x == p->Elem)
+	    return 2;
+	  else
+	    return 0;
+	case(2):
+	  if(x == p->Elem)
+	    return 3;
+	  else
+	    return 0;
+	case(3):
+	  if(x == p->Elem)
+	    return 4;
+	  else
+	    return 0;
+	case(4):
+	  if(x == p->Elem)
+	    return 5;
+	  else
+	    return 0;
+	case(5):
+	  if(x == p->Elem)
+	  return 6;
+	else
+	  return 0;
+	case(6):
+	  if(x == p->Elem)
+	    return 7;
+	else
+	  return 0;
+	case(7):
+	  if(x == p->Elem)
+	    return 8;
+	  else
+	    return 0;
+	case(8):
+	  if(x == p->Elem)
+	    return 9;
+	  else
+	    return 0;
+	case(9):
+	  if(x == p->Elem)
+	    return 10;
+	  else
+	    return 0;
+	case(10):
+	  if(x == p->Elem)
+	    return 11;
+	  else
+	    return 0;
+	case(11):
+	  if(x == p->Elem)
+	  return 12;
+	  else
+	    return 0;
+	case(12):
+	  if(x == p->Elem)
+	    return 13;
+	  else
+	    return 0;
+	case(13):
+	  if(x == p->Elem)
+	    return 14;
+	  else
+	    return 0;
+	case(14):
+	  if(x == p->Elem)
+	    return 15;
+	  else
+	    return 0;
+	case(15):
+	  if(x == p->Elem)
+	    return 16;
+	  else
+	    return 0;
+	case(16):
+	  if(x == p->Elem)
+	    return 17;
+	  else
+	    return 0;
+	case(17):
+	  if(x == p->Elem)
+	    return 18;
+	  else
+	    return 0;
+	case(18):
+	if(x == p->Elem)
+	  return 19;
+	else
+	  return 0;
+	case(19):
+	  if(x == p->Elem)
+	    return 20;
+	  else
+	    return 0;
+	case(20):
+	  if(x == p->Elem)
+	    return 21;
+	  else
+	    return 0;
+	case(21):
+	  if(x == p->Elem)
+	    return 22;
+	  else
+	    return 0;
+	case(22):
+	  if(x == p->Elem)
+	    return 23;
+	  else
+	    return 0;
+	case(23):
+	  if(x == p->Elem)
+	    return 24;
+	  else
+	    return 0;
+	case(24):
+	  if(x == p->Elem)
+	    return 25;
+	  else
+	    return 0;
+	case(25):
+	  if(x == p->Elem)
+	    return 26;
+	  else
+	    return 0;
+	case(26):
+	  if(x == p->Elem)
+	    return 27;
+	  else
+	    return 0;
+	case(27):
+	  if(x == p->Elem)
+	    return 28;
+	  else
+	    return 0;
+	case(28):
+	  if(x == p->Elem)
+	    return 29;
+	  else
+	    return 0;
+	case(29):
+	  if(x == p->Elem)
+	    return 30;
+	  else
+	    return 0;
+	case(30):
+	  if(x == p->Elem)
+	    return 31;
+	  else
+	    return 0;
+	case(31):
+	  if(x == p->Elem)
+	    return 32;
+	  else
+	    return 0;
+	case(32):
+	  if(x == p->Elem)
+	    return 33;
+	  else
+	    return 0;
+	case(33):
+	  if(x == p->Elem)
+	    return 34;
+	  else
+	    return 0;
+	case(34):
+	  if(x == p->Elem)
+	    return 35;
+	  else
+	    return 0;
+	case(35):
+	  if(x == p->Elem)
+	    return 36;
+	  else
+	    return 35;
+	case(36):
+	  if(x == p->Elem)
+	    return 37;
+	  else
+	    return 0;
+	case(37):
+	  if(x == p->Elem)
+	    return 38;
+	  else if(x == p->E1)
+	    return 71;
+	  else if(x == p->E2)
+	    return 84;
+	  else if( x == ' '|| x == '"')
+	    return 37;
+	  else
+	    return 90;
+	case(38):
+	  if(x == p->Elem)
+	    return 39;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(39):
+	  if(x == p->Elem)
+	    return 40;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(40):
+	  if(x == p->Elem)
+	    return 41;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(41):          //Don't need to add space condition to this case
+	  if(x == p->Elem)
+	    return 42;
+	  else
+	    return 90;
+	case(42):
+	  if(x == p->Elem)
+	    return 43;
+	  else if(x == p->E1)
+	    return 49;
+	  else if(x == p->E2)
+	    return 57;
+	  else if(x == p->E3)
+	    return 65;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(43):
+	  if(x == p->Elem)
+	    return 44;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(44):
+	  if(x == p->Elem)
+	    return 45;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(45):
+	  if(x == p->Elem)
+	    return 46;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(46):
+	  if(x == p->Elem)
+	    return 47;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(47):
+	  if(x == p->Elem)
+	    return 48;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(48):         //Special case since p->Next leads to q83 via space
+	  if(x == p->E1)
+	    {
+	      return 83;
+	    }
+	  else
+	    return 37;
+	case(49):
+	  if(x == p->Elem)
+	    return 50;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(50):
+	  if(x == p->Elem)
+	    return 51;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(51):
+	  if(x == p->Elem)
+	    return 52;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(52):
+	  if(x == p->Elem)
+	    return 53;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(53):
+	  if(x == p->Elem)
+	    return 54;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(54):
+	  if(x == p->Elem)
+	    return 55;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(55):
+	  if(x == p->Elem)
+	    return 56;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(56):          //Special space case
+	  if(x == p->E1)
+	    return 83;
+	  else
+	    return 90;
+	case(57):
+	  if(x == p->Elem)
+	    return 58;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(58):
+	  if(x == p->Elem)
+	    return 59;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(59):
+	  if(x == p->Elem)
+	    return 60;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(60):
+	  if(x == p->Elem)
+	    return 61;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(61):
+	  if(x == p->Elem)
+	    return 62;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(62):
+	  if(x == p->Elem)
+	    return 63;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(63):
+	  if(x == p->Elem)
+	    return 64;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(64):         //Special case q64
+	  if(x == p->E1)
+	    return 83;
+	  else
+	    return 90;
+	case(65):
+	  if(x == p->Elem)
+	    return 66;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(66):
+	  if(x == p->Elem)
+	    return 67;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(67):
+	  if(x == p->Elem)
+	    return 68;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(68):
+	  if(x == p->Elem)
+	    return 69;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(69):
+	  if(x == p->Elem)
+	    return 70;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(70):       //q70 special case
+	  if(x == p->E1)
+	    return 83;
+	  else
+	    return 90;
+	case(71):
+	  if(x == p->Elem)
+	    return 72;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(72):
+	  if(x == p->Elem)
+	    return 73;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(73):       //q73 special case
+	  if(x == p->Elem)
+	    return 74;
+	  else if(x == p->E1)
+	    return 75;
+	  else 
+	    return 90;
+	case(74):
+	  if(x == p->E1)
+	    return 84;
+	  else
+	    return 74;
+	case(75):
+	  if(x == p->Elem)
+	    return 76;
+	  else if(x == p->E1)
+	    return 79;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(76):
+	  if(x == p->Elem)
+	    return 77;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(77):      //q77 special case
+	  if(x == p->Elem)
+	    return 78;
+	  else if(x == p->E1)
+	    return 83;
+	  else
+	    return 90;
+	case(78):      //q78 special case
+	  if(x == p->E1)
+	    return 83;
+	  else
+	    return 90;
+	case(79):
+	  if(x == p->Elem)
+	    return 80;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(80):
+	  if(x == p->Elem)
+	    return 81;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(81):
+	  if(x == p->Elem)
+	    return 82;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(82):         //q82 special case
+	  if(x == p->Elem)
+	    return 83;
+	  else
+	    return 90;
+	case(83):
+	  if(x == p->Elem)
+	    return 84;
+	  else
+	    return 83;
+	case(84):
+	  if(x == p->Elem)
+	    return 85;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(85):
+	  if(x == p->Elem)
+	    return 86;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(86):
+	  if(x == p->Elem)
+	    return 87;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(87):
+	  if(x == p->Elem)
+	    return 88;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(88):
+	  if(x == p->Elem)
+	    return 89;
+	  else if(x == ' ')
+	    return 37;
+	  else
+	    return 90;
+	case(89):
+	  return -1;
+	case(90): 
+	  if(x == Rear->Elem || x == Rear->E1)
+	    return 37;
+	  else if(x == Rear->E2) 
+	    return 84;
+	  else 
+	    return 90;
+	}
+    }
+}
